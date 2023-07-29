@@ -1,0 +1,21 @@
+.form {
+  display: flex;
+  width: 829px;
+  gap: 12px;
+  margin: 0 auto;
+}
+
+.cancel {
+  margin-left: 68px;
+}
+
+.circles {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+  max-width: 944px;
+  column-gap: 16px;
+  row-gap: 48px;
+  margin: 48px auto;
+}

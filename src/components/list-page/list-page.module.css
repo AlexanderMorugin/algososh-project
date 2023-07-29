@@ -1,0 +1,31 @@
+.form {
+  display: flex;
+  width: 952px;
+  gap: 12px;
+  justify-content: space-between;
+  margin: 0 auto;
+}
+
+.form_bottom {
+  margin-top: 12px;
+}
+
+.input {
+  width: 204px;
+}
+
+.button {
+  width: 362px;
+}
+
+.circles {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 944px;
+  column-gap: 16px;
+  row-gap: 48px;
+  margin: 120px auto;
+}

@@ -1,0 +1,35 @@
+.form {
+  display: flex;
+  /* justify-content: space-between; */
+  align-items: center;
+  width: 980px;
+  gap: 12px;
+  margin: 0 auto;
+}
+
+.radioInput {
+  margin-left: 28px;
+}
+
+.button {
+  width: 205px;
+}
+
+.buttonFirst {
+  margin-left: 40px;
+}
+
+.buttonLast {
+  margin-left: 68px;
+}
+
+.columns {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 290px;
+  height: 340px;
+  box-sizing: border-box;
+  margin: 50px auto;
+  padding: 0;
+}

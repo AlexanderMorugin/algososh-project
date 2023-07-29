@@ -1,0 +1,14 @@
+.form {
+  display: flex;
+  width: 522px;
+  gap: 12px;
+  margin: 0 auto;
+}
+
+.circles {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  gap: 16px;
+  margin: 120px 0;
+}
