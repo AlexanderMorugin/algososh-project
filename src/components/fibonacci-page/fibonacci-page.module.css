@@ -2,7 +2,9 @@
   display: flex;
   width: 567px;
   gap: 12px;
+  box-sizing: border-box;
   margin: 0 auto;
+  padding: 0;
 }
 
 .circles {
@@ -13,11 +15,16 @@
   max-width: 944px;
   column-gap: 16px;
   row-gap: 48px;
+  box-sizing: border-box;
   margin: 48px auto;
+  padding: 0;
   list-style: none;
 }
 
 .circle {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
   opacity: 0;
   -webkit-animation-name: scale;
           animation-name: scale;
