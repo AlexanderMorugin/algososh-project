@@ -7,20 +7,26 @@ import { Column } from "../ui/column/column";
 import { Direction } from "../../types/direction";
 import { ISort, ArrayData, sorting } from "./utils";
 import { ElementStates } from "../../types/element-states";
-import { DELAY_IN_MS } from "../../constants/delays";
+import { SHORT_DELAY_IN_MS } from "../../constants/delays";
 import { setDelay } from "../../utils";
 
 export const SortingPage: React.FC = () => {
   const [array, setArray] = React.useState<ISort[]>([]);
   const [sortType, setSortType] = React.useState<"bubble" | "selection">("selection");
-  const [isLoading, setIsLoading] = React.useState<Direction | null>(null);
+  const [isLoading, setIsLoading] = React.useState({
+    ascending: false,
+    descending: false,
+    update: false,
+    input: false,
+  });
 
   React.useEffect(() => {
     randomArr();
   }, []);
 
-  const randomArr = (e?: React.FormEvent<HTMLButtonElement>) => {
-    e?.preventDefault();    
+  const randomArr = async () => {
+    setIsLoading({ ...isLoading, input: true, update: true });
+
     const length = Math.random() * (ArrayData.maxLength - ArrayData.minLength) + ArrayData.minLength;
     const newArray = [];
     for (let i = 0; i < length; i++) {
@@ -29,16 +35,24 @@ export const SortingPage: React.FC = () => {
         state: ElementStates.Default,
       });
     }
-    setArray(newArray);
+    await setDelay(SHORT_DELAY_IN_MS);
+    setArray(newArray); 
+    setIsLoading({ ascending: false, descending: false, update: false, input: false });  
   };
 
   const bubbleSort = async (direction: Direction) => {
+    if (direction === Direction.Ascending) {
+      setIsLoading({ ...isLoading, input: true, ascending: true });
+    } else {
+      setIsLoading({ ...isLoading, input: true, descending: true });
+    }
+
     const newArray = [...array];
     for (let i = 0; i < newArray.length; i++) {
       for (let j = 0; j < newArray.length - i - 1; j++) {
         newArray[j].state = ElementStates.Changing;
         newArray[j + 1].state = ElementStates.Changing;
-        await setDelay(DELAY_IN_MS);
+        await setDelay(SHORT_DELAY_IN_MS);
         setArray([...newArray]);
         if (
           direction === Direction.Descending
@@ -52,10 +66,16 @@ export const SortingPage: React.FC = () => {
       newArray[newArray.length - i - 1].state = ElementStates.Modified;
       setArray([...newArray]);
     }
-    setIsLoading(null);
+    setIsLoading({ ascending: false, descending: false, update: false, input: false });
   };
 
   const selectionSort = async (direction: Direction) => {
+    if (direction === Direction.Ascending) {
+      setIsLoading({ ...isLoading, input: true, ascending: true });
+    } else {
+      setIsLoading({ ...isLoading, input: true, descending: true });
+    }
+
     const newArray = [...array];
     for (let i = 0; i < newArray.length - 1; i++) {
       newArray[i].state = ElementStates.Changing;
@@ -63,7 +83,7 @@ export const SortingPage: React.FC = () => {
       for (let j = i + 1; j < newArray.length; j++) {
         newArray[j].state = ElementStates.Changing;
         setArray([...newArray]);
-        await setDelay(DELAY_IN_MS);
+        await setDelay(SHORT_DELAY_IN_MS);
         if (
           direction === Direction.Descending
             ? newArray[j].value > newArray[temp].value
@@ -78,11 +98,10 @@ export const SortingPage: React.FC = () => {
     }
     newArray[newArray.length - 1].state = ElementStates.Modified;
     setArray([...newArray]);
-    setIsLoading(null);
+    setIsLoading({ ascending: false, descending: false, update: false, input: false });
   };
 
   const handleSort = (direction: Direction) => {
-    setIsLoading(direction);
     const newArray = [...array];
     for (let i = 0; i < newArray.length; i++) {
       newArray[i].state = ElementStates.Default;
@@ -100,7 +119,7 @@ export const SortingPage: React.FC = () => {
           value="selection"
           checked={sortType === "selection"}
           onChange={() => setSortType("selection")}
-          disabled={!!isLoading}
+          disabled={isLoading.input}
         />
         <RadioInput
           label="Пузырёк"
@@ -108,30 +127,30 @@ export const SortingPage: React.FC = () => {
           value="bubble"
           checked={sortType === "bubble"}
           onChange={() => setSortType("bubble")}
-          disabled={!!isLoading}
+          disabled={isLoading.input}
         />
-
         <Button
           extraClass={styles.buttonFirst}
           text="По возрастанию"
           sorting={Direction.Ascending}
-          isLoader={isLoading === Direction.Ascending}
+          isLoader={isLoading.ascending}
           onClick={() => handleSort(Direction.Ascending)}          
-          disabled={!!isLoading}
+          disabled={isLoading.descending || isLoading.update}
         />
         <Button
           extraClass={styles.button}
           text="По убыванию"
           sorting={Direction.Descending}
-          isLoader={isLoading === Direction.Descending}
+          isLoader={isLoading.descending}
           onClick={() => handleSort(Direction.Descending)}          
-          disabled={!!isLoading}
+          disabled={isLoading.ascending || isLoading.update}
         />
         <Button
           text="Новый массив"
           extraClass={styles.buttonLast}
+          isLoader={isLoading.update}
           onClick={randomArr}
-          disabled={!!isLoading}
+          disabled={isLoading.ascending || isLoading.descending}
         />
       </form>
       <ul className={styles.columns}>

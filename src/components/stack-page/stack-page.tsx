@@ -5,7 +5,7 @@ import { Button } from "../ui/button/button";
 import { Circle } from "../ui/circle/circle";
 import styles from "./stack-page.module.css";
 import { useForm } from "../hooks/useForm";
-import { Stack } from "./stack-class";
+import { StackClass } from "./stack-class";
 import { ElementStates } from "../../types/element-states";
 import { setDelay } from "../../utils";
 import { SHORT_DELAY_IN_MS } from "../../constants/delays";
@@ -20,7 +20,7 @@ export const StackPage: React.FC = () => {
   const { values, setValues, handleChange } = useForm({ stack: "" });
   const [bottomIndex, setBottomIndex] = React.useState(-1);
 
-  const stackRef = React.useRef(new Stack());
+  const stackRef = React.useRef(new StackClass());
 
   const handleAdd = async () => {
     setIsLoading({ ...isLoading, add: true });
@@ -44,10 +44,12 @@ export const StackPage: React.FC = () => {
   };
 
   const handleClear = async () => {
+    setIsLoading({ ...isLoading, clear: true });
     await setDelay(SHORT_DELAY_IN_MS);
     setValues({ stack: "" });
     stackRef.current.clear();
     showCircles();
+    setIsLoading({ ...isLoading, clear: false });
   };
 
   const showCircles = () => {
@@ -85,6 +87,7 @@ export const StackPage: React.FC = () => {
           text="Очистить"
           disabled={!stackArray.length}
           onClick={handleClear}
+          isLoader={isLoading.clear}
         />
       </form>
       <ul className={styles.circles}>

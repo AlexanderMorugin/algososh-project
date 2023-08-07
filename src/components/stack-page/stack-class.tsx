@@ -7,7 +7,7 @@ interface IStack<T> {
   size: number;
 }
 
-export class Stack<T> implements IStack<T> {
+export class StackClass<T> implements IStack<T> {
   stackArray: T[] = [];
 
   push(item: T) {
