@@ -25,11 +25,43 @@
 
 .columns {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: flex-end;
-  width: 290px;
+  gap: 10px;
   height: 340px;
   box-sizing: border-box;
   margin: 50px auto;
   padding: 0;
+  list-style: none;
+
+  -webkit-animation-name: scale;
+  animation-name: scale;
+  -webkit-animation-duration: 0.5s;
+  animation-duration: 0.5s;
+  -webkit-animation-timing-function: ease-out;
+  animation-timing-function: ease-out;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+}
+
+@-webkit-keyframes scale {
+  0% {
+    transform: scaleY(0);
+    opacity: 0;
+  }
+  100% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+
+@keyframes scale {
+  0% {
+    transform: scaleY(0);
+    opacity: 0;
+  }
+  100% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
 }

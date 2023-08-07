@@ -5,9 +5,10 @@ import { Button } from "../ui/button/button";
 import styles from "./string.module.css";
 import { Circle } from "../ui/circle/circle";
 import { useForm } from "../hooks/useForm";
-import { ISort, setDelay, sort } from "./utils";
+import { ISort, sorting } from "./utils";
 import { ElementStates } from "../../types/element-states";
 import { DELAY_IN_MS } from "../../constants/delays";
+import { setDelay } from "../../utils";
 
 export const StringComponent: React.FC = () => {
   const [letters, setLetters] = React.useState<Array<ISort>>([]);
@@ -24,7 +25,7 @@ export const StringComponent: React.FC = () => {
     setIsLoading(true);
     setLetters(word);
 
-    const end = word.length - 1;
+    const end = word.length - 1;    
     const mid = Math.ceil(word.length / 2);
     for (let i = 0; i < mid; i++) {
       let j = end - i;
@@ -38,7 +39,7 @@ export const StringComponent: React.FC = () => {
         await setDelay(DELAY_IN_MS);
       }
 
-      sort(word, i, j);
+      sorting(word, i, j);
       [word[i].state, word[j].state] = [
         ElementStates.Modified,
         ElementStates.Modified,
