@@ -17,8 +17,7 @@ interface ButtonProps extends React.HTMLProps<HTMLButtonElement> {
 export const Button: React.FC<ButtonProps> = ({
   text,
   extraClass = "",
-  // type = "button",
-  type,
+  type = "button",
   isLoader = false,
   sorting,
   linkedList,
