@@ -52,7 +52,8 @@ export const QueuePage: React.FC = () => {
     setIsLoading({ ...isLoading, clear: true });
     await setDelay(SHORT_DELAY_IN_MS);
     queueClass.clear();
-    setQueueArray([...queueClass.getElements()]);
+    await setDelay(SHORT_DELAY_IN_MS);
+    setQueueArray([...queueClass.getElements().fill("")]);
     setIsLoading({ ...isLoading, clear: false });
   };
 
@@ -92,7 +93,7 @@ export const QueuePage: React.FC = () => {
           text="Удалить"
           onClick={handleDelete}
           isLoader={isLoading.delete}
-          disabled={isLoading.add || queueClass.getEmpty()}
+          disabled={isLoading.add || isLoading.clear || queueClass.getEmpty()}
         />
         <Button
           extraClass={styles.cancel}
