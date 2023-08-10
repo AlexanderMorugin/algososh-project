@@ -7,74 +7,114 @@ import styles from "./queue-page.module.css";
 import { useForm } from "../hooks/useForm";
 import { SHORT_DELAY_IN_MS } from "../../constants/delays";
 import { QueueClass } from "./queue-class";
+import { ElementStates } from "../../types/element-states";
+import { setDelay } from "../../utils";
+import { HEAD, TAIL } from "../../constants/element-captions";
+
+const queueClass = new QueueClass<string>(7);
 
 export const QueuePage: React.FC = () => {
-  const queueClass = new QueueClass<string>(7);
-
   const [queueArray, setQueueArray] = React.useState<Array<string>>([]);
-  const [isLoading, setIsLoading] = React.useState(false);
-  const { values, setValues, handleChange } = useForm({ queueArray: "" });
-  const [currentIndex, setCurrenrIndex] = React.useState(-1);
+  const [isLoading, setIsLoading] = React.useState({
+    add: false,
+    delete: false,
+    clear: false,
+  });
+  const { values, setValues, handleChange } = useForm({ queue: "" });
+  const [elementIndex, setElementIndex] = React.useState(-1);
 
   React.useEffect(() => {
-    setQueueArray(queueClass.add().fill(""));
+    setQueueArray([...queueClass.getElements().fill("")]);
   }, []);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleAdd = async () => {
+    setIsLoading({ ...isLoading, add: true });
+    setElementIndex(queueClass.getTail());
+    await setDelay(SHORT_DELAY_IN_MS);
+    queueClass.enqueue(values.queue);
+    setQueueArray([...queueClass.getElements()]);
+    setElementIndex(-1);
+    setValues({ ...values, queue: "" });
+    setIsLoading({ ...isLoading, add: false });
   };
 
-  const handleAdd = () => {
-    setIsLoading(true);
-    queueClass.enqueue(values.queueArray);
-    setQueueArray([...queueClass.add()]);
-    setValues({ ...values, queueArray: "" });
+  const handleDelete = async () => {
+    setIsLoading({ ...isLoading, delete: true });
+    setElementIndex(queueClass.getHead());
+    await setDelay(SHORT_DELAY_IN_MS);
+    queueClass.dequeue();
+    setQueueArray([...queueClass.getElements()]);
+    setElementIndex(-1);
+    setIsLoading({ ...isLoading, delete: false });
   };
 
-  const resetQueueArray = () => {
-    setIsLoading(true);
-    queueClass.reset();
+  const handleClear = async () => {
+    setIsLoading({ ...isLoading, clear: true });
+    await setDelay(SHORT_DELAY_IN_MS);
+    queueClass.clear();
+    setQueueArray([...queueClass.getElements()]);
+    setIsLoading({ ...isLoading, clear: false });
+  };
+
+  const headIndex = (index: number) => {
+    return index === queueClass.getHead() && !queueClass.getEmpty() ? HEAD : "";
+  };
+
+  const tailIndex = (index: number) => {
+    return index === queueClass.getLastIndex() && !queueClass.getEmpty()
+      ? TAIL
+      : "";
   };
 
   return (
     <SolutionLayout title="Очередь">
-      <form className={styles.form} onSubmit={handleSubmit}>
+      <form
+        className={styles.form}
+        onSubmit={(e: React.FormEvent<HTMLFormElement>) => e.preventDefault()}
+      >
         <Input
           placeholder="Введите значение"
           type="text"
-          name="queueArray"
-          value={values.queueArray}
+          name="queue"
+          value={values.queue}
           maxLength={4}
-          max={4}
           isLimitText={true}
           onChange={handleChange}
         />
         <Button
           text="Добавить"
-          type="button"
-          disabled={!values.queueArray}
+          type="submit"
           onClick={handleAdd}
+          isLoader={isLoading.add}
+          disabled={!values.queue}
         />
-
-        <Button text="Удалить" disabled={!values.queueArray} />
-
         <Button
-          text="Очистить"
-          type="button"
+          text="Удалить"
+          onClick={handleDelete}
+          isLoader={isLoading.delete}
+          disabled={isLoading.add || queueClass.getEmpty()}
+        />
+        <Button
           extraClass={styles.cancel}
-          // disabled={true}
-          disabled={queueClass.empty()}
-          onClick={resetQueueArray}
+          text="Очистить"
+          onClick={handleClear}
+          isLoader={isLoading.clear}
+          disabled={queueClass.getEmpty()}
         />
       </form>
       <ul className={styles.circles}>
         {queueArray.map((item, index) => (
           <li key={index}>
             <Circle
-              // head={"head"}
-              // tail={"tail"}
               letter={item}
               index={index}
+              state={
+                index === elementIndex
+                  ? ElementStates.Changing
+                  : ElementStates.Default
+              }
+              head={headIndex(index) ? HEAD : ""}
+              tail={tailIndex(index) ? TAIL : ""}
             />
           </li>
         ))}

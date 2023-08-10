@@ -1,40 +1,56 @@
-export class QueueClass<T> {
-  constructor(size: number) {
-    this.size = size;
-    this.container = Array(size);
-  }
+interface IQueueClass<T> {
+  enqueue: (item: T) => void;
+  dequeue: () => void;
+  getHead: () => number;
+  getTail: () => number;
+  getSize: () => number;
+  getLastIndex: () => number;
+  clear: () => void;
+  getElements: () => T[] | null[];
+  getEmpty: () => void;
+}
 
-  container: Array<T> = [];
+export class QueueClass<T> implements IQueueClass<T> {
+  queueArray: Array<T> = [];
+  head = 0;
+  tail = 0;
+  lastIndex = 0;
   size: number = 0;
   length: number = 0;
-  index: number = 0;
-  tail: number = 0;
-  head: number = 0;
+
+  constructor(size: number) {
+    this.size = size;
+    this.queueArray = Array(size);
+  }
 
   enqueue(item: T) {
-    this.index = this.tail;
-    this.container[this.tail] = item;
+    this.lastIndex = this.tail;
+    this.queueArray[this.tail] = item;
     this.tail = (this.tail + 1) % this.size;
     this.length++;
-  };
-
-  add() {
-    return this.container;
   }
 
   dequeue() {
-    delete this.container[this.head];
+    delete this.queueArray[this.head];
     this.head = (this.head + 1) % this.size;
     this.length--;
-  };
+  }
 
-  reset() {
+  getElements = () => this.queueArray;
+
+  getHead = () => this.head;
+
+  getTail = () => this.tail;
+
+  getSize = () => this.size;
+
+  getEmpty = () => this.length === 0;
+
+  getLastIndex = () => this.lastIndex;
+
+  clear() {
     this.length = 0;
     this.head = 0;
     this.tail = 0;
-  }
-
-  empty() {
-    return this.length === 0;
   }
 }

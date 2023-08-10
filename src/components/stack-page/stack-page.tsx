@@ -18,7 +18,7 @@ export const StackPage: React.FC = () => {
     clear: false,
   });
   const { values, setValues, handleChange } = useForm({ stack: "" });
-  const [bottomIndex, setBottomIndex] = React.useState(-1);
+  const [elementIndex, setElementIndex] = React.useState(-1);
 
   const stackRef = React.useRef(new StackClass());
 
@@ -27,18 +27,18 @@ export const StackPage: React.FC = () => {
     setValues({ stack: "" });
     stackRef.current.push(values.stack);
     showCircles();
-    setBottomIndex(stackRef.current.index);
+    setElementIndex(stackRef.current.index);
     await setDelay(SHORT_DELAY_IN_MS);
-    setBottomIndex(-1);
+    setElementIndex(-1);
     setIsLoading({ ...isLoading, add: false });
   };
 
   const handleDelete = async () => {
     setIsLoading({ ...isLoading, delete: true });
-    setBottomIndex(stackRef.current.index);
+    setElementIndex(stackRef.current.index);
     stackRef.current.pop();
     await setDelay(SHORT_DELAY_IN_MS);
-    setBottomIndex(-1);
+    setElementIndex(-1);
     setIsLoading({ ...isLoading, delete: false });
     showCircles();
   };
@@ -99,7 +99,7 @@ export const StackPage: React.FC = () => {
                 letter={item}
                 head={index === stackArray!.length - 1 ? "top" : undefined}
                 state={
-                  index === bottomIndex
+                  index === elementIndex
                     ? ElementStates.Changing
                     : ElementStates.Default
                 }

@@ -1,4 +1,4 @@
-interface IStack<T> {
+interface IStackClass<T> {
   push: (item: T) => void;
   pop: () => void;
   clear: () => void;
@@ -7,7 +7,7 @@ interface IStack<T> {
   size: number;
 }
 
-export class StackClass<T> implements IStack<T> {
+export class StackClass<T> implements IStackClass<T> {
   stackArray: T[] = [];
 
   push(item: T) {
