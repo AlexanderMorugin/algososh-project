@@ -5,7 +5,7 @@ import { Button } from "../ui/button/button";
 import { Circle } from "../ui/circle/circle";
 import styles from "./queue-page.module.css";
 import { useForm } from "../hooks/useForm";
-import { SHORT_DELAY_IN_MS } from "../../constants/delays";
+import { DELAY_IN_MS, SHORT_DELAY_IN_MS } from "../../constants/delays";
 import { QueueClass } from "./queue-class";
 import { ElementStates } from "../../types/element-states";
 import { setDelay } from "../../utils";
@@ -50,9 +50,9 @@ export const QueuePage: React.FC = () => {
 
   const handleClear = async () => {
     setIsLoading({ ...isLoading, clear: true });
-    await setDelay(SHORT_DELAY_IN_MS);
+    await setDelay(DELAY_IN_MS);
     queueClass.clear();
-    await setDelay(SHORT_DELAY_IN_MS);
+    await setDelay(DELAY_IN_MS);
     setQueueArray([...queueClass.getElements().fill("")]);
     setIsLoading({ ...isLoading, clear: false });
   };
