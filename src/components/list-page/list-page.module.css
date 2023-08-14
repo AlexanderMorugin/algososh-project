@@ -35,7 +35,6 @@
 
 .circles {
   display: flex;
-  /* flex-wrap: wrap; */
   justify-content: center;
   align-items: center;
   width: 100%;
@@ -90,8 +89,6 @@
   opacity: 0;
   -webkit-animation-name: scale;
           animation-name: scale;
-  /* -webkit-animation-delay: .8s;
-          animation-delay: .8s; */
   -webkit-animation-duration: .3s;
           animation-duration: .3s;          
   -webkit-animation-timing-function: ease-out;

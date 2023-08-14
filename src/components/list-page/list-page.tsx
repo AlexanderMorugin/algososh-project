@@ -41,8 +41,6 @@ export const ListPage: React.FC = () => {
     setListArray(linkedListClass.getElements());
   }, []);
 
-  // console.log(listArray);
-
   const handleAddHead = async () => {
     setIsLoading({ ...isLoading, loading: true, addHead: true });
     const newNode = { value: values.listValue, state: ElementStates.Default };
@@ -110,15 +108,53 @@ export const ListPage: React.FC = () => {
 
   const handleAddIndex = async () => {
     setIsLoading({ ...isLoading, loading: true, addIndex: true });
-
+    setSmallCircle(true);
+    setCurrentElement(values.listValue);
+    let start = 0;
+    while (start <= Number(values.listIndex)) {
+      setChangeIndex(start);
+      setElementIndex(start);
+      await setDelay(DELAY_IN_MS);
+      start++;
+    }
+    setElementIndex(Number(values.listIndex));
+    const newNode = {
+      value: values.listValue,
+      index: values.listIndex,
+      state: ElementStates.Default,
+    };
+    linkedListClass.addIndex(newNode, Number(newNode.index));
+    setValues({ listValue: "", listIndex: "" });
+    setElementIndex(-1);
+    setCurrentElement("");
+    setChangeIndex(-1);
+    setListArray([...linkedListClass.getElements()]);
+    setModIndex(Number(values.listIndex));
     await setDelay(DELAY_IN_MS);
+    setModIndex(-1);
+    setChangeIndex(-1);
+    setListArray([...linkedListClass.getElements()]);
+    setSmallCircle(false);
     setIsLoading({ ...isLoading, loading: false, addIndex: false });
   };
 
   const handleDeleteIndex = async () => {
     setIsLoading({ ...isLoading, loading: true, deleteIndex: true });
-
+    let start = 0;
+    while (start <= Number(values.listIndex)) {
+      setChangeIndex(start);
+      await setDelay(DELAY_IN_MS);
+      start++;
+    }
+    setElementIndex(Number(values.listIndex));
+    setCurrentElement(listArray[Number(values.listIndex)].listValue.value);
+    linkedListClass.getNodeIndex(Number(values.listIndex))!.listValue.value = "";
+    linkedListClass.deleteIndex(Number(values.listIndex));
+    setValues({ listValue: "", listIndex: "" });
     await setDelay(DELAY_IN_MS);
+    setChangeIndex(-1);
+    setElementIndex(-1);
+    setListArray([...linkedListClass.getElements()]);
     setIsLoading({ ...isLoading, loading: false, deleteIndex: false });
   };
 
