@@ -250,14 +250,14 @@ export const ListPage: React.FC = () => {
           type="submit"
           onClick={handleAddIndex}
           isLoader={isLoading.addIndex}
-          disabled={!values.listIndex || isLoading.loading}
+          disabled={!values.listIndex || isLoading.loading || Number(values.listIndex) > listArray.length - 1}
         />
         <Button
           extraClass={styles.buttonBottom}
           text="Удалить по индексу"
           onClick={handleDeleteIndex}
           isLoader={isLoading.deleteIndex}
-          disabled={!values.listIndex || isLoading.loading}
+          disabled={!values.listIndex || isLoading.loading || Number(values.listIndex) > listArray.length - 1}
         />
       </form>
       <ul className={styles.circles}>
