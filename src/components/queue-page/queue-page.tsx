@@ -4,37 +4,122 @@ import { Input } from "../ui/input/input";
 import { Button } from "../ui/button/button";
 import { Circle } from "../ui/circle/circle";
 import styles from "./queue-page.module.css";
+import { useForm } from "../hooks/useForm";
+import { DELAY_IN_MS, SHORT_DELAY_IN_MS } from "../../constants/delays";
+import { QueueClass } from "./queue-class";
+import { ElementStates } from "../../types/element-states";
+import { setDelay } from "../../utils";
+import { HEAD, TAIL } from "../../constants/element-captions";
+
+const queueClass = new QueueClass<string>(7);
 
 export const QueuePage: React.FC = () => {
-  const [disabled, setDisabled] = React.useState(true);
+  const [queueArray, setQueueArray] = React.useState<Array<string>>([]);
+  const [isLoading, setIsLoading] = React.useState({
+    add: false,
+    delete: false,
+    clear: false,
+  });
+  const { values, setValues, handleChange } = useForm({ queue: "" });
+  const [elementIndex, setElementIndex] = React.useState(-1);
+
+  React.useEffect(() => {
+    setQueueArray([...queueClass.getElements().fill("")]);
+  }, []);
+
+  const handleAdd = async () => {
+    setIsLoading({ ...isLoading, add: true });
+    setElementIndex(queueClass.getTail());
+    await setDelay(SHORT_DELAY_IN_MS);
+    queueClass.enqueue(values.queue);
+    setQueueArray([...queueClass.getElements()]);
+    setElementIndex(-1);
+    setValues({ ...values, queue: "" });
+    setIsLoading({ ...isLoading, add: false });
+  };
+
+  const handleDelete = async () => {
+    setIsLoading({ ...isLoading, delete: true });
+    setElementIndex(queueClass.getHead());
+    await setDelay(SHORT_DELAY_IN_MS);
+    queueClass.dequeue();
+    setQueueArray([...queueClass.getElements()]);
+    setElementIndex(-1);
+    setIsLoading({ ...isLoading, delete: false });
+  };
+
+  const handleClear = async () => {
+    setIsLoading({ ...isLoading, clear: true });
+    await setDelay(DELAY_IN_MS);
+    queueClass.clear();
+    await setDelay(DELAY_IN_MS);
+    setQueueArray([...queueClass.getElements().fill("")]);
+    setIsLoading({ ...isLoading, clear: false });
+  };
+
+  const headIndex = (index: number) => {
+    return index === queueClass.getHead() && !queueClass.getEmpty() ? HEAD : "";
+  };
+
+  const tailIndex = (index: number) => {
+    return index === queueClass.getLastIndex() && !queueClass.getEmpty()
+      ? TAIL
+      : "";
+  };
+
   return (
     <SolutionLayout title="Очередь">
-      <form className={styles.form}>
+      <form
+        className={styles.form}
+        onSubmit={(e: React.FormEvent<HTMLFormElement>) => e.preventDefault()}
+      >
         <Input
           placeholder="Введите значение"
-          maxLength={4}
-          // max={11}
           type="text"
+          name="queue"
+          value={values.queue}
+          maxLength={4}
           isLimitText={true}
-          onChange={() => setDisabled(false)}
+          onChange={handleChange}
         />
-        <Button text="Добавить" disabled={disabled} />
-        <Button text="Удалить" disabled={disabled} />
         <Button
-          text="Очистить"
+          text="Добавить"
+          type="submit"
+          onClick={handleAdd}
+          isLoader={isLoading.add}
+          disabled={!values.queue}
+        />
+        <Button
+          text="Удалить"
+          onClick={handleDelete}
+          isLoader={isLoading.delete}
+          disabled={isLoading.add || isLoading.clear || queueClass.getEmpty()}
+        />
+        <Button
           extraClass={styles.cancel}
-          disabled={disabled}
+          text="Очистить"
+          onClick={handleClear}
+          isLoader={isLoading.clear}
+          disabled={queueClass.getEmpty()}
         />
       </form>
-      <div className={styles.circles}>
-        <Circle head={"head"} tail={"tail"} letter={"1"} index={0} />
-        <Circle letter={"2"} index={1} />
-        <Circle letter={"3"} index={2} />
-        <Circle letter={"4"} index={3} />
-        <Circle letter={"2"} index={4} />
-        <Circle letter={"3"} index={5} />
-        <Circle letter={"4"} index={6} />
-      </div>
+      <ul className={styles.circles}>
+        {queueArray.map((item, index) => (
+          <li key={index}>
+            <Circle
+              letter={item}
+              index={index}
+              state={
+                index === elementIndex
+                  ? ElementStates.Changing
+                  : ElementStates.Default
+              }
+              head={headIndex(index) ? HEAD : ""}
+              tail={tailIndex(index) ? TAIL : ""}
+            />
+          </li>
+        ))}
+      </ul>
     </SolutionLayout>
   );
 };

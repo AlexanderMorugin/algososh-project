@@ -1,11 +1,11 @@
-import { useState, ChangeEvent } from "react";
+import React from "react";
 
-export function useForm(inputValues={}) {
-  const [values, setValues] = useState(inputValues);
+export function useForm<T>(inputValues: T = {} as T) {
+  const [values, setValues] = React.useState<T>(inputValues);
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const {value, name} = event.target;
-    setValues({...values, [name]: value});
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value, name } = e.target;
+    setValues({ ...values, [name]: value });
   };
-  return {values, handleChange, setValues};
-}
+  return { values, handleChange, setValues };
+};

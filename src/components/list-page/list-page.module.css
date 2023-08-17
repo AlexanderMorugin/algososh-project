@@ -3,7 +3,9 @@
   width: 952px;
   gap: 12px;
   justify-content: space-between;
+  box-sizing: border-box;
   margin: 0 auto;
+  padding: 0;
 }
 
 .form_bottom {
@@ -12,20 +14,153 @@
 
 .input {
   width: 204px;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-.button {
+.buttonTop {
+  width: 175px;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.buttonBottom {
   width: 362px;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 .circles {
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   width: 100%;
   max-width: 944px;
   column-gap: 16px;
   row-gap: 48px;
+  box-sizing: border-box;
   margin: 120px auto;
+  padding: 0;
+  list-style: none;
+
+  -webkit-animation-name: pickup;
+          animation-name: pickup;
+  -webkit-animation-duration: 1.2s;
+          animation-duration: 1.2s;
+  -webkit-animation-timing-function: ease-out;
+          animation-timing-function: ease-out;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+}
+
+.circle {
+  display: flex;
+  align-items: center;
+  gap: 21px;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.arrow {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  opacity: 0;
+  -webkit-animation-name: scale;
+          animation-name: scale;
+  -webkit-animation-delay: .8s;
+          animation-delay: .8s;
+  -webkit-animation-duration: .3s;
+          animation-duration: .3s;          
+  -webkit-animation-timing-function: ease-out;
+          animation-timing-function: ease-out;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+}
+
+.item {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  opacity: 0;
+  -webkit-animation-name: scale;
+          animation-name: scale;
+  -webkit-animation-duration: .3s;
+          animation-duration: .3s;          
+  -webkit-animation-timing-function: ease-out;
+          animation-timing-function: ease-out;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+}
+
+@-webkit-keyframes pickup {
+  0% {
+    transform: translateY(200px);
+    opacity: 0;
+  }
+  40% {
+    transform: translateY(-20px);
+    opacity: 0.5;
+  }
+  60% {
+    transform: translateY(20px);
+    opacity: 0.7;
+  }
+  80% {
+    transform: translateY(-10px);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+
+@keyframes pickup {
+  0% {
+    transform: translateY(200px);
+    opacity: 0;
+  }
+  40% {
+    transform: translateY(-20px);
+    opacity: 0.5;
+  }
+  60% {
+    transform: translateY(20px);
+    opacity: 0.7;
+  }
+  80% {
+    transform: translateY(-10px);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes scale {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes scale {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }

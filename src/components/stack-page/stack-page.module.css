@@ -5,7 +5,7 @@
   margin: 0 auto;
 }
 
-.cancel {
+.reset {
   margin-left: 68px;
 }
 
@@ -16,6 +16,44 @@
   width: 100%;
   max-width: 944px;
   column-gap: 16px;
-  row-gap: 48px;
+  row-gap: 68px;
   margin: 48px auto;
+  list-style: none;
+}
+
+.circle {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  opacity: 0;
+  -webkit-animation-name: scale;
+          animation-name: scale;
+  -webkit-animation-duration: .3s;
+          animation-duration: .3s;          
+  -webkit-animation-timing-function: ease-out;
+          animation-timing-function: ease-out;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+}
+
+@-webkit-keyframes scale {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes scale {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }

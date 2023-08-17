@@ -2,16 +2,58 @@
   display: flex;
   width: 567px;
   gap: 12px;
+  box-sizing: border-box;
   margin: 0 auto;
+  padding: 0;
 }
 
 .circles {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: left;
   width: 100%;
   max-width: 944px;
   column-gap: 16px;
   row-gap: 48px;
+  box-sizing: border-box;
   margin: 48px auto;
+  padding: 0;
+  list-style: none;
+}
+
+.circle {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  opacity: 0;
+  -webkit-animation-name: scale;
+          animation-name: scale;
+  -webkit-animation-duration: .3s;
+          animation-duration: .3s;          
+  -webkit-animation-timing-function: ease-out;
+          animation-timing-function: ease-out;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+}
+
+@-webkit-keyframes scale {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes scale {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
