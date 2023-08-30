@@ -1,5 +1,5 @@
 import { Button } from "./button";
-import renderer from 'react-test-renderer';
+import renderer from "react-test-renderer";
 import { render, fireEvent, screen } from "@testing-library/react";
 
 describe("Тестирование компонента Button", () => {
@@ -29,5 +29,4 @@ describe("Тестирование компонента Button", () => {
     fireEvent.click(screen.getByRole("button"));
     expect(onClickMock).toHaveBeenCalledTimes(1);
   });
-
-})
+});
