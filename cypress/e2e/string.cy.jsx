@@ -15,6 +15,9 @@ describe("Тестирование алгоритма - Строка", () => {
     cy.get("button").last().as("button");
     cy.get("input").type("собака");
     cy.get("@button").should("not.be.disabled");
+
+    cy.wait(DELAY_IN_MS);
+
     cy.get("@button").click();
     cy.get("@button")
       .invoke("attr", "class")
