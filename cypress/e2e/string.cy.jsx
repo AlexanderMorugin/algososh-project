@@ -1,5 +1,7 @@
 import { DELAY_IN_MS } from "../../src/constants/delays";
 
+const circle = "[class^='circle_circle']";
+
 describe("Тестирование алгоритма - Строка", () => {
   beforeEach(() => {
     cy.visit("http://localhost:3000/recursion");
@@ -23,7 +25,7 @@ describe("Тестирование алгоритма - Строка", () => {
       .invoke("attr", "class")
       .then((className) => expect(className).contains("loader"));
 
-    cy.get('[class^="circle_circle"]').then((item) => {
+    cy.get(circle).then((item) => {
       cy.get(item[0])
         .invoke("attr", "class")
         .then((classList) => expect(classList).contains("circle_changing"));

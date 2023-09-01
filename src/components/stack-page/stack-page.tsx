@@ -71,6 +71,7 @@ export const StackPage: React.FC = () => {
         />
         <Button
           text="Добавить"
+          id="addButton"
           type="submit"
           disabled={!values.stack || isLoading.delete}
           onClick={handleAdd}
@@ -78,6 +79,7 @@ export const StackPage: React.FC = () => {
         />
         <Button
           text="Удалить"
+          id="deleteButton"
           disabled={stackArray.length === 0 || isLoading.add}
           onClick={handleDelete}
           isLoader={isLoading.delete}
@@ -85,6 +87,7 @@ export const StackPage: React.FC = () => {
         <Button
           extraClass={styles.reset}
           text="Очистить"
+          id="clearButton"
           disabled={!stackArray.length}
           onClick={handleClear}
           isLoader={isLoading.clear}
