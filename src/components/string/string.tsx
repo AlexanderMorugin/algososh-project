@@ -66,6 +66,7 @@ export const StringComponent: React.FC = () => {
         />
         <Button
           text="Развернуть"
+          id="addButton"
           type="submit"
           isLoader={isLoading}
           disabled={!values.string || values.string.length > 11}

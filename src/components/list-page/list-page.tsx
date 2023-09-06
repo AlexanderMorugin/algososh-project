@@ -205,6 +205,7 @@ export const ListPage: React.FC = () => {
         <Button
           extraClass={styles.buttonTop}
           text="Добавить в head"
+          id="addHead"
           type="submit"
           onClick={handleAddHead}
           isLoader={isLoading.addHead}
@@ -213,6 +214,7 @@ export const ListPage: React.FC = () => {
         <Button
           extraClass={styles.buttonTop}
           text="Добавить в tail"
+          id="addTail"
           onClick={handleAddTail}
           isLoader={isLoading.addTail}
           disabled={!values.listValue || isLoading.loading}
@@ -220,6 +222,7 @@ export const ListPage: React.FC = () => {
         <Button
           extraClass={styles.buttonTop}
           text="Удалить из head"
+          id="deleteHead"
           onClick={handleDeleteHead}
           isLoader={isLoading.deleteHead}
           disabled={listArray.length === 0 || isLoading.loading}
@@ -227,6 +230,7 @@ export const ListPage: React.FC = () => {
         <Button
           extraClass={styles.buttonTop}
           text="Удалить из tail"
+          id="deleteTail"
           onClick={handleDeleteTail}
           isLoader={isLoading.deleteTail}
           disabled={listArray.length === 0 || isLoading.loading}
@@ -247,6 +251,7 @@ export const ListPage: React.FC = () => {
         <Button
           extraClass={styles.buttonBottom}
           text="Добавить по индексу"
+          id="addIndex"
           type="submit"
           onClick={handleAddIndex}
           isLoader={isLoading.addIndex}
@@ -255,6 +260,7 @@ export const ListPage: React.FC = () => {
         <Button
           extraClass={styles.buttonBottom}
           text="Удалить по индексу"
+          id="deleteIndex"
           onClick={handleDeleteIndex}
           isLoader={isLoading.deleteIndex}
           disabled={!values.listIndex || isLoading.loading || Number(values.listIndex) > listArray.length - 1}
