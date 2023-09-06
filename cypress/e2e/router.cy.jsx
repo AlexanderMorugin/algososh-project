@@ -1,6 +1,6 @@
 describe("Тестирование переходов по страницам", () => {
   beforeEach(() => {
-    cy.visit("http://localhost:3000");
+    cy.visit("/");
   });
 
   it("Главная страница", () => {
@@ -8,32 +8,32 @@ describe("Тестирование переходов по страницам", 
   });
 
   it("Переход на страницу - Строка", () => {
-    cy.visit("http://localhost:3000/recursion");
+    cy.visit("/recursion");
     cy.contains("Строка");
   });
 
   it("Переход на страницу - Последовательность Фибоначчи", () => {
-    cy.visit("http://localhost:3000/fibonacci");
+    cy.visit("/fibonacci");
     cy.contains("Последовательность Фибоначчи");
   });
 
   it("Переход на страницу - Сортировка массива", () => {
-    cy.visit("http://localhost:3000/sorting");
+    cy.visit("/sorting");
     cy.contains("Сортировка массива");
   });
 
   it("Переход на страницу - Стек", () => {
-    cy.visit("http://localhost:3000/stack");
+    cy.visit("/stack");
     cy.contains("Стек");
   });
 
   it("Переход на страницу - Очередь", () => {
-    cy.visit("http://localhost:3000/queue");
+    cy.visit("/queue");
     cy.contains("Очередь");
   });
 
   it("Переход на страницу - Связный список", () => {
-    cy.visit("http://localhost:3000/list");
+    cy.visit("/list");
     cy.contains("Связный список");
   });
 });
