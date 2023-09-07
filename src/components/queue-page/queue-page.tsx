@@ -84,6 +84,7 @@ export const QueuePage: React.FC = () => {
         />
         <Button
           text="Добавить"
+          id="addButton"
           type="submit"
           onClick={handleAdd}
           isLoader={isLoading.add}
@@ -91,6 +92,7 @@ export const QueuePage: React.FC = () => {
         />
         <Button
           text="Удалить"
+          id="deleteButton"
           onClick={handleDelete}
           isLoader={isLoading.delete}
           disabled={isLoading.add || isLoading.clear || queueClass.getEmpty()}
@@ -98,6 +100,7 @@ export const QueuePage: React.FC = () => {
         <Button
           extraClass={styles.cancel}
           text="Очистить"
+          id="clearButton"
           onClick={handleClear}
           isLoader={isLoading.clear}
           disabled={queueClass.getEmpty()}
