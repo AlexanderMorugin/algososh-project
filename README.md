@@ -60,16 +60,14 @@ npm start
 
 ## Макет ##
 
-Проект выполнен согласно макету в Figma, находящегося по [данной ссылке](https://www.figma.com/file/ocw9a6hNGeAejl4F3G9fp8/React-_-Проектные-задачи-(3-месяца)_external_link?type=design&node-id=2974-2989)
+Проект выполнен согласно макету в Figma, находящегося по [данной ссылке](https://www.figma.com/file/RIkypcTQN5d37g7RRTFid0/Algososh_external_link?node-id=0%3A1)
 
 ## Смотреть проект ##
 
-Ссылка на проект в gh-pages: **[React-Burger](https://alexandermorugin.github.io/react-burger/)**
+Ссылка на проект в gh-pages: **[Algososh](https://alexandermorugin.github.io/algososh-project/)**
 
 --------
 студент "Яндекс Практикум"\
 курс "Веб-разработчик плюс"\
 Александр Моругин\
 2023г
-
-Мы подготовили [дизайн проекта.](https://www.figma.com/file/RIkypcTQN5d37g7RRTFid0/Algososh_external_link?node-id=0%3A1) Там вы сможете найти необходимые цвета, размеры и примерную раскадровку визуализации, но сначала изучите описание работы.
