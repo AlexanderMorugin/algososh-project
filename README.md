@@ -2,7 +2,7 @@
 
 Учебный проект алгоритмов и тестирования, курса Веб-разработчик Яндекс.Практикум.
 
-![Stellar Demo](/react-burger-readme-min.png)
+![Algososh Demo](/algososh-readme-min.png)
 
 ## О проекте ##
 
