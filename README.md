@@ -47,7 +47,7 @@
 ## Как запустить проект: ##
 Клонирование репозитория
 ```
-git clone https://github.com/AlexanderMorugin/stellar-burger.git
+git clone https://github.com/AlexanderMorugin/algososh-project
 ```
 Установка зависимостей
 ```
